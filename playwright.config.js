@@ -5,6 +5,10 @@ export default defineConfig({
 
   fullyParallel: false,
 
+  launchOptions: {
+    slowMo: 1000
+  },
+
   retries: 0,
 
   workers: 1,
