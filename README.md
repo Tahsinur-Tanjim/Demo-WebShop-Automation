@@ -339,3 +339,28 @@ git commit -m "Add Postman collection for GET all users and PUT update user"
 git push -u origin feature/api-testing
 
 
+## Running the Tests
+
+##### Run each scenario individually #####
+
+npm run test:q1
+
+npm run test:q2
+
+npm run test:q3
+
+npm run test:api
+
+### Run all tests together (UI then API) ###
+
+npm run test:all
+
+### Generate reports
+
+UI Allure report: npm run report:ui
+
+API Allure report: npm run report:api
+
+API HTML report: api-tests/reports/html/report.html
+
+UI HTML report: npx playwright show-report reports/html-report
