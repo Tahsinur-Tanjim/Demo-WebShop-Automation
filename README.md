@@ -63,4 +63,203 @@ npx playwright --version
 git init
 ### Step 11: Rename the Branch to Master
 
-*Note: The UI automation scenarios (Q1, Q2, and Q3), Page Object Model implementation, advanced reports, and additional GitHub feature branches will be documented in the upcoming phases.*
+
+
+### Phase 2: UI Automation Scenarios (Playwright with POM)
+
+This phase includes implementation of automation test scenarios using Playwright and the Page Object Model (POM) design pattern.
+
+### Q1: Invalid Login Scenario
+
+# Objective #
+
+Verify that the application displays an error message when invalid login credentials are provided.
+
+**Create Feature Branch**
+
+git checkout \-b q1\-invalid\-login
+
+**Create Page Object**
+
+pages/LoginPage.js
+
+**Create Test Script**
+
+tests/q1\-invalid\-login.spec.js
+
+#### Test Steps
+
+1. Open Demo Web Shop.
+2. Click Login.
+3. Enter invalid email.
+4. Enter invalid password.
+5. Click Login button.
+6. Verify login error message.
+
+**Execute Test**
+
+npx playwright test tests/q1\-invalid\-login.spec.js
+
+**Generate HTML Report**
+
+npx playwright show\-report reports/html\-report
+
+**Commit Changes**
+
+git add .
+
+git commit \-m "Implemented invalid login scenario"
+
+git push \-u origin q1\-invalid\-login
+
+
+### Q2: Register and Add Product to Cart
+
+#### Objective
+
+Verify that a new customer can register successfully, add a product to the shopping cart, and validate product information.
+
+**Create Feature Branch**
+
+git checkout \-b q2\-register\-cart
+
+**Create Page Object**
+
+pages/RegisterPage.js
+
+**Create Test Script**
+
+tests/q2\-register\-cart.spec.js
+
+#### Test Steps
+
+1. Register a new customer using a dynamic email.
+2. Verify successful registration.
+3. Navigate to Books category.
+4. Select "Computing and Internet" product.
+5. Add product to cart.
+6. Open shopping cart.
+7. Verify product information.
+8. Verify quantity.
+
+**Execute Test**
+
+npx playwright test tests/q2\-register\-cart.spec.js
+
+**Generate HTML Report**
+
+npx playwright show\-report reports/html\-report
+
+**Commit Changes**
+
+git add .
+
+git commit \-m "Implemented register and add product to cart scenario"
+
+git push \-u origin q2\-register\-cart
+
+
+### Q3: End\-to\-End Checkout Flow
+
+#### Objective
+
+Verify complete checkout functionality from product search to successful order placement.
+
+**Create Feature Branch**
+
+git checkout \-b q3\-e2e\-checkout
+
+**Create Page Object**
+
+pages/CheckoutPage.js
+
+**Create Test Script**
+
+tests/q3\-e2e\-checkout.spec.js
+
+#### Test Steps
+
+1. Register a new customer.
+2. Search for "Computing and Internet".
+3. Open product details page.
+4. Update quantity to 2.
+5. Add product to cart.
+6. Open shopping cart.
+7. Accept Terms and Conditions.
+8. Proceed to Checkout.
+9. Complete Billing Address.
+10. Complete Shipping Address.
+11. Select Shipping Method.
+12. Select Payment Method.
+13. Confirm Order.
+14. Verify successful order placement.
+
+**Execute Test**
+
+npx playwright test tests/q3\-e2e\-checkout.spec.js
+
+**Generate HTML Report**
+
+npx playwright show\-report reports/html\-report
+
+**Commit Changes**
+
+git add .
+
+git commit \-m "Implemented end to end checkout scenario"
+
+git push \-u origin q3\-e2e\-checkout
+
+
+## Allure Report Generation
+
+Generate Allure Results:
+
+npx playwright test
+
+Generate Allure Report:
+
+npx allure generate allure\-results \-\-clean \-o allure\-report
+
+Open Allure Report:
+
+npx allure open allure\-report
+
+
+## Branch Strategy
+
+The project follows a feature branch approach.
+
+master
+
+├── q1\-invalid\-login
+
+├── q2\-register\-cart
+
+└── q3\-e2e\-checkout
+
+Each scenario is developed in a separate branch and later merged into the master branch.
+
+## Current Status
+
+Completed:
+
+Project Setup
+
+ Playwright Configuration
+
+ GitHub Integration
+
+ Q1 Invalid Login Scenario
+
+ Q2 Register and Add Product to Cart Scenario
+
+ Q3 End\-to\-End Checkout Scenario
+
+ HTML Report Generation
+
+ Allure Report Generation
+
+ Page Object Model (POM)
+
+
