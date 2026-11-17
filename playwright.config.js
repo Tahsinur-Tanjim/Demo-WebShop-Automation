@@ -27,7 +27,7 @@ export default defineConfig({
 
     browserName: 'chromium',
 
-    headless: false,
+    headless:  !!process.env.CI,
 
     viewport: {
       width: 1920,
