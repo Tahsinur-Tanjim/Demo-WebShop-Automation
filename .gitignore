@@ -10,3 +10,6 @@ node_modules/
 /allure-report/
 /.env/
 /reports/
+api-tests/reports/
+api-tests/allure-results/
+api-tests/node_modules/
