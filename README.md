@@ -262,4 +262,80 @@ Project Setup
 
  Page Object Model (POM)
 
+ ## Phase 3: API Automation (Postman with Newman)
+
+This phase includes API testing of the JSONPlaceholder Users API using Postman and Newman.
+
+**API Under Test:** https://jsonplaceholder.typicode.com/users
+
+### Technologies Used
+- Postman
+- Newman
+- newman-reporter-htmlextra
+- newman-reporter-allure
+- Allure Commandline
+
+### Folder Structure
+
+api-tests/
+├── Project_API_Testing.postman_collection.json
+├── package.json
+└── package-lock.json
+
+**Create Feature Branch**
+
+git checkout -b feature/api-testing
+
+### API Test Steps
+1. Send a GET request to /users.
+2. Verify status code is 200.
+3. Verify the response is a non-empty array.
+4. Verify each user has "id", "name" and "email".
+5. Save one user ID in a local variable (pm.variables).
+6. Send a PUT request to "/users/{{userId}}".
+7. Update "name", "email" and "company.name" using dynamic data.
+8. Verify status code is 200.
+9. Verify the returned ID matches the saved ID.
+10. Verify phone is not empty.
+11. Verify the returned name matches the updated name.
+
+### Note on the PUT request
+"phone" is also sent in the PUT body with its original value. JSONPlaceholder is a mock API and returns only the fields that were sent, so without "phone" the "Phone should not be empty" check would fail. Only "name", "email" and "company.name" are actually updated.
+
+### Setup
+
+**Install Newman and the reporters globally:**
+
+npm install -g newman newman-reporter-htmlextra newman-reporter-allure allure-commandline
+
+**Install local dependencies:**
+
+cd api-tests
+
+npm install
+
+### Execute API Tests
+
+cd api-tests
+
+npm test
+
+This cleans old results, runs the collection and generates the HTML and Allure results.
+
+### Generate Reports
+
+HTML report: api-tests/reports/html/report.html
+
+**Allure report:**
+
+npm run report
+
+### Commit Changes
+
+git add .
+
+git commit -m "Add Postman collection for GET all users and PUT update user"
+
+git push -u origin feature/api-testing
+
 
