@@ -1,0 +1,114 @@
+{
+  "info": {
+    "_postman_id": "530760c8-3fda-49ff-b4e3-93d1d6824bd1",
+    "name": "Project API Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58613900",
+    "_collection_link": "https://go.postman.co/collection/58613900-530760c8-3fda-49ff-b4e3-93d1d6824bd1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01 - Get All Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\nconst responseData = pm.response.json();\r\n\r\n// 1. Status code validation\r\npm.test(\"Status code should be 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n// 2. Response should be an array\r\npm.test(\"Response should be an array\", function () {\r\n    pm.expect(responseData).to.be.an(\"array\");\r\n});\r\n\r\n// 3. Users array should not be empty\r\npm.test(\"Users array should not be empty\", function () {\r\n    pm.expect(responseData.length).to.be.greaterThan(0);\r\n});\r\n\r\n// 4. Validate required fields\r\npm.test(\"Each user should have id, name and email\", function () {\r\n    responseData.forEach((user) => {\r\n        pm.expect(user.id).to.exist;\r\n        pm.expect(user.name).to.be.a(\"string\").and.not.empty;\r\n        pm.expect(user.email).to.be.a(\"string\").and.not.empty;\r\n    });\r\n});\r\n\r\n// 5. Save User ID and Phone in local variables\r\nif (responseData.length > 0) {\r\n    pm.variables.set(\"userId\", responseData[0].id);\r\n    pm.variables.set(\"userPhone\", responseData[0].phone);\r\n}\r\n\r\n// 6. Verify User ID is saved\r\npm.test(\"User ID should be saved\", function () {\r\n    pm.expect(pm.variables.get(\"userId\")).to.exist;\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 - Update User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const ts = Date.now();\r\npm.variables.set(\"updatedName\", \"Test User \" + ts);\r\npm.variables.set(\"updatedEmail\", \"user\" + ts + \"@example.com\");\r\npm.variables.set(\"updatedCompany\", \"Company \" + ts);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code should be 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst res = pm.response.json();\r\n\r\npm.test(\"Returned ID should match saved userId\", function () {\r\n    pm.expect(String(res.id)).to.eql(String(pm.variables.get(\"userId\")));\r\n});\r\n\r\npm.test(\"Phone should not be empty\", function () {\r\n    pm.expect(res.phone).to.be.a(\"string\").and.not.empty;\r\n    pm.expect(res.phone).to.not.include(\"{{\");\r\n});\r\n\r\npm.test(\"Returned name should match updated name\", function () {\r\n    pm.expect(res.name).to.eql(pm.variables.get(\"updatedName\"));\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"{{updatedName}}\",\r\n  \"email\": \"{{updatedEmail}}\",\r\n  \"phone\": \"{{userPhone}}\",\r\n  \"company\": {\r\n    \"name\": \"{{updatedCompany}}\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/{{userId}}",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "userPhone",
+      "value": ""
+    },
+    {
+      "key": "updatedName",
+      "value": ""
+    },
+    {
+      "key": "updatedEmail",
+      "value": ""
+    },
+    {
+      "key": "updatedCompany",
+      "value": ""
+    }
+  ]
+}
