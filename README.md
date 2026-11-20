@@ -135,7 +135,7 @@ Demo-WebShop-Automation/
 └── README.md
 ```
 
-*Note: Report and result directories are generated during test execution. Their presence locally does not necessarily mean they are tracked by Git.*
+*Note: Report and result directories are generated during test execution. These directories are excluded from version control through the .gitignore configuration and are not tracked by Git.*
 
 ## 5. UI Automation Testing
 
@@ -334,57 +334,59 @@ Separate feature branches are used for different testing tasks.
 
 Check the current branch:
 
-```bash
 git branch
-```
 
 Check modified files:
 
-```bash
 git status
-```
 
-Create a new feature branch:
+Create UI feature branches:
 
-```bash
-git checkout -b feature-name
-```
+git checkout -b q1-invalid-login
+
+git checkout -b q2-register-cart
+
+git checkout -b q3-e2e-checkout
+
+Create API feature branch:
+
+git checkout -b feature/api-testing
 
 Stage changes:
 
-```bash
 git add .
-```
 
 Commit changes:
 
-```bash
 git commit -m "Add automation test"
-```
 
-Push the current branch:
+Push branches:
 
-```bash
-git push -u origin feature-name
-```
+git push -u origin q1-invalid-login
+
+git push -u origin q2-register-cart
+
+git push -u origin q3-e2e-checkout
+
+git push -u origin feature/api-testing
 
 Switch to the master branch:
 
-```bash
 git checkout master
-```
 
-Merge a feature branch:
+Merge feature branches:
 
-```bash
-git merge feature-name
-```
+git merge q1-invalid-login
+
+git merge q2-register-cart
+
+git merge q3-e2e-checkout
+
+git merge feature/api-testing
 
 Push the updated master branch:
 
-```bash
 git push origin master
-```
 
 *Note: Create a new branch only when it does not already exist. Feature branches should be merged into the main branch after reviewing and testing the changes.*
 
